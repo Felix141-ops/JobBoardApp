@@ -500,7 +500,14 @@ footer {
 .social-links a {
     font-size: 1.5rem;
 }
-
+#postJobModal .modal-content input {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+#postJobModal .modal-content select {
+    padding: 10px;
+    margin-bottom: 10px;
+}
 @media (max-width: 768px) {
     body {
         padding-bottom: 400px; 

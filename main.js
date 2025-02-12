@@ -87,7 +87,8 @@ const closeModals = document.querySelectorAll('.close');
 const jobPostForm = document.getElementById('jobPostForm');
 const applicationForm = document.getElementById('applicationForm');
 const salaryFilter = document.getElementById('salaryFilter');
-//Displays featured jobs in the UI.
+
+//Displaying featured jobs in the UI.
 function displayFeaturedJobs() {
     const featuredJobsContainer = document.querySelector('.featured-jobs .jobs-container');
     const featuredJobs = jobs.filter(job => job.featured);
@@ -98,7 +99,12 @@ function displayFeaturedJobs() {
         featuredJobsContainer.appendChild(jobCard);
     });
 }
-
+/*
+ * Creates a job card element for display.
+ * @ param {Object} job - Job object containing job details.
+ * @ param {boolean} isFeatured - Determines if the job is featured.
+ * @ returns {HTMLElement} - A job card DOM element.
+ */
 function createJobCard(job, isFeatured = false) {
     const jobCard = document.createElement('div');
     jobCard.className = `job-card ${isFeatured ? 'featured' : ''}`;
@@ -134,7 +140,10 @@ function createJobCard(job, isFeatured = false) {
     `;
     return jobCard;
 }
-
+/**
+ * Displays a list of jobs in the UI.
+ * @ param {Array} jobsToDisplay - List of job objects to be displayed.
+ */
 function displayJobs(jobsToDisplay = jobs) {
     jobsList.innerHTML = '';
     jobsToDisplay.forEach(job => {
@@ -142,7 +151,9 @@ function displayJobs(jobsToDisplay = jobs) {
         jobsList.appendChild(jobCard);
     });
 }
-
+/*
+ * Filters jobs based on user input and selections.
+ */
 function filterJobs() {
     const searchTerm = searchInput.value.toLowerCase();
     const categoryValue = categoryFilter.value;
@@ -163,7 +174,10 @@ function filterJobs() {
 
     displayJobs(filteredJobs);
 }
-
+/**
+ * Saves a job to local storage.
+ * @ param {number} jobId - The ID of the job to save.
+ */
 function saveJob(jobId) {
     const savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]');
     if (!savedJobs.includes(jobId)) {
@@ -174,14 +188,20 @@ function saveJob(jobId) {
         alert('Job already saved!');
     }
 }
-
+/**
+ * Opens the job application modal and populates it with job details.
+ * @ param {number} jobId - The ID of the job being applied for.
+ */
 function openApplicationForm(jobId) {
     const job = jobs.find(j => j.id === jobId);
     document.getElementById('applicationJobTitle').textContent = job.title;
     document.getElementById('applicationCompany').textContent = job.company;
     applicationModal.style.display = 'block';
 }
-
+/**
+ * Opens the job application modal and populates it with job details.
+ * @ param {number} jobId - The ID of the job being applied for.
+ */
 applicationForm.onsubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(applicationForm);
@@ -191,7 +211,7 @@ applicationForm.onsubmit = (e) => {
     applicationModal.style.display = 'none';
     applicationForm.reset();
 };
-
+//Opens the post job modal.
 postJobBtn.onclick = () => postJobModal.style.display = 'block';
 closeModals.forEach(closeBtn => {
     closeBtn.onclick = () => {
@@ -199,7 +219,7 @@ closeModals.forEach(closeBtn => {
         applicationModal.style.display = 'none';
     };
 });
-//
+//Helps close the modal by clicking on the parent window.
 window.onclick = (event) => {
     if (event.target === postJobModal || event.target === applicationModal) {
         postJobModal.style.display = 'none';
@@ -223,18 +243,18 @@ if (newsletterForm) {
         newsletterForm.reset();
     });
 }
-
+// Event Listeners for search functionality and filters
 searchBtn.addEventListener('click', filterJobs);
 searchInput.addEventListener('input', filterJobs);
 categoryFilter.addEventListener('change', filterJobs);
 locationFilter.addEventListener('change', filterJobs);
 salaryFilter.addEventListener('change', filterJobs);
-
+// Event Listener for Resume Submission Method Selection
 document.getElementById('resumeMethod').addEventListener('change', (e) => {
     const manualInput = document.getElementById('manualResumeInput');
     const fileUpload = document.getElementById('resumeUpload');
     const driveLink = document.getElementById('driveLinkInput');
-    
+     // Hides all input fields initially
     manualInput.style.display = 'none';
     fileUpload.style.display = 'none';
     driveLink.style.display = 'none';
@@ -251,7 +271,7 @@ document.getElementById('resumeMethod').addEventListener('change', (e) => {
             break;
     }
 });
-
+// Function to Set Up Job Alerts (Feature Placeholder)
 function setupJobAlerts() {
     const alertPreferences = {
         jobTypes: [],
